@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f3f8fc" />
+  <title>AstraQuant AI</title>
+  <meta name="description" content="AstraQuant AI autonomous market signals, paper trading, performance journal, and adaptive learning dashboard." />
+  <meta property="og:title" content="AstraQuant AI" />
+  <meta property="og:description" content="Autonomous market intelligence and paper trading dashboard." />
+  <meta property="og:image" content="/assets/astraquant-logo.png" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navigasi utama">
+      <button class="brand" data-page="home" aria-label="Buka halaman Home">
+        <img src="/assets/astraquant-logo.png" alt="AstraQuant AI" />
+        <span>
+          <strong>AstraQuant AI</strong>
+          <small>Autonomous Trading Lab</small>
+        </span>
+      </button>
+
+      <nav class="sidebar-nav">
+        <button class="navlink active" data-page="home">
+          <span class="nav-icon">⌂</span><span>Home</span>
+        </button>
+        <button class="navlink" data-page="signals">
+          <span class="nav-icon">◉</span><span>Signals</span>
+        </button>
+        <button class="navlink" data-page="trading">
+          <span class="nav-icon">▤</span><span>Paper Trading</span>
+        </button>
+        <button class="navlink" data-page="history">
+          <span class="nav-icon">◷</span><span>History</span>
+        </button>
+        <button class="navlink" data-page="memory">
+          <span class="nav-icon">▱</span><span>Learning</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-status">
+        <div class="status-dot"></div>
+        <div>
+          <span>AI Engine</span>
+          <b id="sidebarEngineStatus">Connecting...</b>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <span>AstraQuant AI</span>
+        <small>Global workspace • paper trading</small>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <button class="mobile-brand" data-page="home" aria-label="Buka halaman Home">
+          <img src="/assets/astraquant-logo.png" alt="AstraQuant AI" />
+          <strong>AstraQuant AI</strong>
+        </button>
+
+        <div class="topbar-search">
+          <span>⌕</span>
+          <input id="globalSearch" type="search" placeholder="Cari aset, sinyal, atau pola..." autocomplete="off" />
+        </div>
+
+        <div class="topbar-actions">
+          <div class="workspace-pill">
+            <span>Global Workspace</span>
+            <small>Data bersama semua pengguna</small>
+          </div>
+          <div class="engine-pill">
+            <span class="pulse-dot"></span>
+            <div>
+              <b id="botStatus">Loading</b>
+              <small id="lastUpdatedText">Menunggu data...</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section id="home" class="page active">
+          <div class="page-heading home-heading">
+            <div>
+              <span class="eyebrow">AUTONOMOUS MARKET INTELLIGENCE</span>
+              <h1>AstraQuant AI Trading Dashboard</h1>
+              <p>Pantau sinyal, posisi paper trading, riwayat performa, dan pembelajaran AI dari satu dashboard.</p>
+            </div>
+            <div class="heading-actions">
+              <button class="button primary" data-page="signals">Lihat Signals</button>
+              <button class="button secondary" data-page="trading">Paper Trading</button>
+            </div>
+          </div>
+
+          <div class="metrics-grid home-metrics">
+            <article class="metric-card tint-mint">
+              <div class="metric-icon">$</div>
+              <span>Balance</span>
+              <strong id="balance">$1,000</strong>
+              <small>Modal demo tersedia</small>
+            </article>
+            <article class="metric-card tint-blue clickable" id="equityCard" tabindex="0" role="button" aria-label="Buka grafik equity">
+              <div class="metric-icon">↗</div>
+              <span>Equity</span>
+              <strong id="equity">$1,000</strong>
+              <small>Klik untuk grafik detail</small>
+            </article>
+            <article class="metric-card tint-violet">
+              <div class="metric-icon">▤</div>
+              <span>Open Trades</span>
+              <strong id="openCount">0</strong>
+              <small>Posisi aktif global</small>
+            </article>
+            <article class="metric-card tint-cyan">
+              <div class="metric-icon">✓</div>
+              <span>Closed Trades</span>
+              <strong id="tradeCount">0</strong>
+              <small>Jurnal tersimpan</small>
+            </article>
+            <article class="metric-card tint-amber">
+              <div class="metric-icon">◎</div>
+              <span>Win Rate</span>
+              <strong id="actionWinRate">-</strong>
+              <small>Riwayat closed trade</small>
+            </article>
+            <article class="metric-card tint-slate">
+              <div class="metric-icon">AI</div>
+              <span>AI Performance</span>
+              <strong class="metric-copy" id="dbSource">Loading...</strong>
+              <small id="modeStatus">Global engine</small>
+            </article>
+          </div>
+
+          <div class="home-primary-grid">
+            <article class="surface-card prime-card">
+              <div class="card-header prime-header">
+                <div>
+                  <span class="section-chip">PRIME SETUP</span>
+                  <h2 id="bestSignal">Scanning...</h2>
+                  <p id="primeSubtext">AI memilih setup dengan skor dan struktur terbaik.</p>
+                </div>
+                <div class="score-gauge" id="heroScore">-</div>
+              </div>
+
+              <div class="prime-chart-wrap">
+                <canvas id="heroChart" width="920" height="360"></canvas>
+              </div>
+
+              <div class="prime-data-grid">
+                <div><span>Bias</span><b id="heroSide">-</b></div>
+                <div><span>Structure</span><b id="heroPattern">-</b></div>
+                <div><span>Open Trades</span><b id="openCountHero">0</b></div>
+                <div><span>Risk/Reward</span><b id="heroRR">-</b></div>
+              </div>
+
+              <div class="prime-insight" id="primeInsight">
+                <span class="insight-icon">✦</span>
+                <p>Menunggu analisis pasar terbaru...</p>
+              </div>
+            </article>
+
+            <article class="surface-card equity-preview-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Equity Curve</span>
+                  <h3 id="homeEquityValue">$1,000</h3>
+                  <p id="homeEquityPnl">Perubahan equity terbaru</p>
+                </div>
+                <button class="icon-button" id="openEquityFromPreview" aria-label="Buka grafik equity detail">↗</button>
+              </div>
+              <canvas id="homeEquityChart" class="equity-preview-canvas" width="520" height="260"></canvas>
+              <div class="preview-footer">
+                <span>Modal awal</span>
+                <b id="homeEquityStart">$1,000</b>
+                <span>Floating P/L</span>
+                <b id="homeFloatingPnl">$0</b>
+              </div>
+            </article>
+          </div>
+
+          <div class="home-secondary-grid">
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Live Paper Trades</span>
+                  <p>Posisi aktif dan floating P/L terbaru.</p>
+                </div>
+                <button class="text-button" data-page="trading">Lihat semua</button>
+              </div>
+              <div id="homePositions" class="stack-list"></div>
+            </article>
+
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Recent Journal</span>
+                  <p>Trade terakhir yang sudah ditutup.</p>
+                </div>
+                <button class="text-button" data-page="history">Buka jurnal</button>
+              </div>
+              <div id="homeHistory" class="stack-list"></div>
+            </article>
+
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Adaptive Learning</span>
+                  <p>Bobot strategi dari hasil win dan loss.</p>
+                </div>
+                <button class="text-button" data-page="memory">Lihat detail</button>
+              </div>
+              <div id="learningSnapshot" class="learning-snapshot"></div>
+            </article>
+
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Market Universe</span>
+                  <p>Aset aktif yang dipantau AI saat ini.</p>
+                </div>
+              </div>
+              <div id="universeBox" class="universe-box"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="signals" class="page">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">MARKET SETUPS</span>
+              <h1>Signals</h1>
+              <p>Setup real-time yang diprioritaskan berdasarkan price action, momentum, volume, dan manajemen risiko.</p>
+            </div>
+            <div class="filter-bar">
+              <label>
+                <span>Side</span>
+                <select id="filterSide">
+                  <option value="ALL">Semua</option>
+                  <option value="LONG">Long</option>
+                  <option value="SHORT">Short</option>
+                  <option value="WAIT">Wait</option>
+                </select>
+              </label>
+              <label>
+                <span>Urutkan</span>
+                <select id="sortBy">
+                  <option value="score">Skor tertinggi</option>
+                  <option value="change">Perubahan terbesar</option>
+                  <option value="confidence">Confidence</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div id="signalGrid" class="signals-layout"></div>
+        </section>
+
+        <section id="trading" class="page">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">AUTONOMOUS DEMO EXECUTION</span>
+              <h1>Paper Trading</h1>
+              <p>Eksekusi virtual, pemantauan risiko, dan hasil posisi tanpa menggunakan dana sungguhan.</p>
+            </div>
+          </div>
+
+          <div class="metrics-grid paper-metrics">
+            <article class="metric-card tint-mint">
+              <div class="metric-icon">$</div>
+              <span>Saldo</span>
+              <strong id="paperBalance">$1,000</strong>
+              <small>Available balance</small>
+            </article>
+            <article class="metric-card tint-blue">
+              <div class="metric-icon">↗</div>
+              <span>Equity</span>
+              <strong id="paperEquity">$1,000</strong>
+              <small>Balance + posisi aktif</small>
+            </article>
+            <article class="metric-card tint-violet">
+              <div class="metric-icon">▤</div>
+              <span>Open Trades</span>
+              <strong id="paperOpenCount">0</strong>
+              <small>Posisi aktif</small>
+            </article>
+            <article class="metric-card tint-amber">
+              <div class="metric-icon">◎</div>
+              <span>Win Rate</span>
+              <strong id="paperWinRate">-</strong>
+              <small>Closed trades</small>
+            </article>
+          </div>
+
+          <div class="paper-top-grid">
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Kurva Equity</span>
+                  <h3 id="paperEquityValue">$1,000</h3>
+                  <p id="paperEquityChange">Perubahan equity</p>
+                </div>
+                <div class="mini-tabs" aria-label="Rentang equity">
+                  <button data-paper-range="1D" class="active">1D</button>
+                  <button data-paper-range="1W">1W</button>
+                  <button data-paper-range="1M">1M</button>
+                </div>
+              </div>
+              <canvas id="paperEquityChart" class="paper-equity-canvas" width="900" height="300"></canvas>
+            </article>
+
+            <article class="surface-card risk-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Risk Engine</span>
+                  <p>Aturan eksekusi otomatis.</p>
+                </div>
+                <span class="status-badge positive">ACTIVE</span>
+              </div>
+              <div class="risk-list">
+                <div><span>Max Exposure</span><b>4 posisi</b></div>
+                <div><span>Priority Engine</span><b>Skor tertinggi</b></div>
+                <div><span>Structure Filter</span><b>BOS, sweep, channel</b></div>
+                <div><span>Entry Logic</span><b>Market / pullback</b></div>
+                <div><span>AI Exit Logic</span><b>TP, SL, flip, time exit</b></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="paper-content-grid">
+            <article class="surface-card positions-panel">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Open Positions</span>
+                  <p>Harga entry, last, risiko, dan floating P/L.</p>
+                </div>
+                <span class="count-pill" id="paperPositionCountPill">0 posisi</span>
+              </div>
+              <div id="positionsBox" class="position-list"></div>
+            </article>
+
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Recent Closed Trades</span>
+                  <p>Hasil posisi terbaru.</p>
+                </div>
+                <button class="text-button" data-page="history">Riwayat lengkap</button>
+              </div>
+              <div id="paperClosedBox" class="closed-list"></div>
+            </article>
+
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Filtered Setups</span>
+                  <p>Setup yang dilewati AI beserta alasannya.</p>
+                </div>
+              </div>
+              <div id="skippedBox" class="skip-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="history" class="page">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">PERFORMANCE JOURNAL</span>
+              <h1>History</h1>
+              <p>Setiap closed trade disimpan sebagai bahan evaluasi untuk keputusan berikutnya.</p>
+            </div>
+          </div>
+
+          <div class="metrics-grid history-metrics">
+            <article class="metric-card tint-blue">
+              <div class="metric-icon">▤</div>
+              <span>Closed Trades</span>
+              <strong id="historyClosed">0</strong>
+              <small>Total trade selesai</small>
+            </article>
+            <article class="metric-card tint-mint">
+              <div class="metric-icon">$</div>
+              <span>Net P/L</span>
+              <strong id="historyPnl">$0</strong>
+              <small>Akumulasi realized P/L</small>
+            </article>
+            <article class="metric-card tint-violet">
+              <div class="metric-icon">◎</div>
+              <span>Win Rate</span>
+              <strong id="historyWinRate">-</strong>
+              <small>Trade profitable</small>
+            </article>
+            <article class="metric-card tint-amber">
+              <div class="metric-icon">↗</div>
+              <span>Avg Return</span>
+              <strong id="historyAvgReturn">-</strong>
+              <small>Rata-rata per trade</small>
+            </article>
+          </div>
+
+          <div class="history-top-grid">
+            <article class="surface-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Realized Equity Curve</span>
+                  <h3 id="historyCurveValue">$1,000</h3>
+                  <p id="historyCurveChange">Performa realized P/L</p>
+                </div>
+                <div class="mini-tabs" aria-label="Rentang history">
+                  <button data-history-range="1D">1D</button>
+                  <button data-history-range="1W">1W</button>
+                  <button data-history-range="1M" class="active">1M</button>
+                </div>
+              </div>
+              <canvas id="historyEquityChart" class="history-equity-canvas" width="900" height="300"></canvas>
+            </article>
+
+            <article class="surface-card lesson-summary-card">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label">Performance Summary</span>
+                  <p>Pola hasil trading terbaru.</p>
+                </div>
+              </div>
+              <div id="historySummaryBox" class="summary-stats"></div>
+            </article>
+          </div>
+
+          <article class="surface-card history-list-card">
+            <div class="card-header compact">
+              <div>
+                <span class="section-label">Closed Trade Journal</span>
+                <p>Entry, exit, alasan, dan lesson dari AI.</p>
+              </div>
+            </div>
+            <div id="historyBox" class="history-list"></div>
+          </article>
+
+          <div id="historyLessons" class="lesson-grid"></div>
+        </section>
+
+        <section id="memory" class="page">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">ADAPTIVE MODEL MEMORY</span>
+              <h1>Learning</h1>
+              <p>AI mempelajari hasil closed trade, memperbarui bobot, dan menyimpan kesalahan yang sering muncul.</p>
+            </div>
+          </div>
+
+          <div class="learning-overview-grid">
+            <article class="surface-card learning-intro-card">
+              <div class="learning-illustration">AI</div>
+              <div>
+                <span class="section-label">Adaptive Learning</span>
+                <h2>Model belajar dari hasil nyata.</h2>
+                <p>Win memperkuat strategi yang konsisten. Loss menurunkan bobot setup dan menambah catatan risiko untuk screening berikutnya.</p>
+              </div>
+            </article>
+
+            <div class="metrics-grid learning-metrics">
+              <article class="metric-card tint-blue">
+                <div class="metric-icon">#</div>
+                <span>Memory Nodes</span>
+                <strong id="memoryNodeCount">0</strong>
+                <small>Aset dan arah tersimpan</small>
+              </article>
+              <article class="metric-card tint-mint">
+                <div class="metric-icon">✓</div>
+                <span>Total Wins</span>
+                <strong id="memoryWins">0</strong>
+                <small>Closed trade profitable</small>
+              </article>
+              <article class="metric-card tint-violet">
+                <div class="metric-icon">↗</div>
+                <span>Avg Weight</span>
+                <strong id="memoryAvgWeight">0</strong>
+                <small>Penyesuaian bobot</small>
+              </article>
+            </div>
+          </div>
+
+          <div id="memoryGrid" class="memory-grid"></div>
+
+          <div class="learning-bottom-grid">
+            <article class="surface-card danger-soft">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label danger-text">Kesalahan yang Sering Terjadi</span>
+                  <p>Ringkasan tag risiko dari memory.</p>
+                </div>
+              </div>
+              <div id="commonMistakesBox" class="bullet-list danger-list"></div>
+            </article>
+            <article class="surface-card success-soft">
+              <div class="card-header compact">
+                <div>
+                  <span class="section-label success-text">Penyesuaian AI Berikutnya</span>
+                  <p>Fokus perbaikan yang disarankan.</p>
+                </div>
+              </div>
+              <div id="nextAdjustmentsBox" class="bullet-list success-list"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="detailModal" class="signal-dialog">
+    <div class="dialog-shell">
+      <div class="dialog-header">
+        <div>
+          <span class="eyebrow">SIGNAL ANALYSIS</span>
+          <h2 id="modalTitle">Signal Detail</h2>
+          <p id="modalSub">AI analysis</p>
+        </div>
+        <button id="closeModal" class="dialog-close" aria-label="Tutup">×</button>
+      </div>
+      <div id="modalBody" class="dialog-body"></div>
+    </div>
+  </dialog>
+
+  <div id="equityModal" class="modal hidden" aria-hidden="true">
+    <button class="modal-backdrop" data-close-modal="equity" aria-label="Tutup"></button>
+    <div class="modal-card">
+      <div class="dialog-header">
+        <div>
+          <span class="eyebrow">PERFORMANCE</span>
+          <h2>Equity Curve</h2>
+          <p>Perjalanan modal demo sampai equity terbaru.</p>
+        </div>
+        <button class="dialog-close" data-close-modal="equity" aria-label="Tutup">×</button>
+      </div>
+      <div class="equity-toolbar">
+        <div class="mini-tabs">
+          <button class="equity-range-btn active" data-equity-range="1D">1D</button>
+          <button class="equity-range-btn" data-equity-range="1W">1W</button>
+          <button class="equity-range-btn" data-equity-range="1M">1M</button>
+        </div>
+        <div class="mini-tabs">
+          <button class="equity-mode-btn active" data-equity-mode="step">Step</button>
+          <button class="equity-mode-btn" data-equity-mode="candle">Candle</button>
+        </div>
+      </div>
+      <canvas id="equityChart" width="1000" height="420"></canvas>
+      <div id="equitySummary" class="equity-summary"></div>
+    </div>
+  </div>
+
+  <nav class="mobile-bottom-nav" aria-label="Navigasi mobile">
+    <button class="bottom-nav-btn active" data-page="home"><span>⌂</span><b>Home</b></button>
+    <button class="bottom-nav-btn" data-page="signals"><span>◉</span><b>Signal</b></button>
+    <button class="bottom-nav-btn" data-page="trading"><span>▤</span><b>Paper</b></button>
+    <button class="bottom-nav-btn" data-page="history"><span>◷</span><b>History</b></button>
+    <button class="bottom-nav-btn" data-page="memory"><span>▱</span><b>Learn</b></button>
+  </nav>
+
+  <script src="/app.js"></script>
+</body>
+</html>

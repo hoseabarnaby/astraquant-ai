@@ -1,0 +1,11 @@
+cd C:\Users\ASUS\Downloads\astraquant_ai_v46_responsive_redesign
+git init
+git add .
+git commit -m "responsive redesign v46"
+git branch -M main
+git remote add origin https://github.com/hoseabarnaby/astraquant-ai.git
+git push -u origin main --force
+
+If origin already exists:
+git remote set-url origin https://github.com/hoseabarnaby/astraquant-ai.git
+git push -u origin main --force
