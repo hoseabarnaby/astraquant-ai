@@ -1,0 +1,52 @@
+# Optional Render Blueprint.
+# You can ignore this file and deploy manually from Render Dashboard.
+services:
+  - type: web
+    name: astraquant-ai
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: ASTRAQUANT_WORKSPACE_ID
+        value: astraquant_main_live
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      - key: ASTRAQUANT_ENGINE_ENABLED
+        value: true
+      - key: ASTRAQUANT_ENGINE_OPEN_TRADES
+        value: true
+      - key: ASTRAQUANT_ENGINE_INTERVAL_MS
+        value: 30000
+
+      - key: ASTRAQUANT_REQUIRE_EXCHANGE_PRICE
+        value: true
+      - key: ASTRAQUANT_REQUIRE_EXCHANGE_CANDLES
+        value: true
+      - key: ASTRAQUANT_MAX_EXCHANGE_PRICE_GAP
+        value: 0.08
+
+      - key: ASTRAQUANT_PRICE_MODE
+        value: coingecko
+      - key: ASTRAQUANT_BLOCKLIST
+        value: SAHARA
+      - key: ASTRAQUANT_REQUIRE_EXCHANGE_PRICE
+        value: false
+      - key: ASTRAQUANT_REQUIRE_EXCHANGE_CANDLES
+        value: false
+
+      - key: ASTRAQUANT_ENABLE_XAUUSD
+        value: true
+      - key: ASTRAQUANT_XAU_MAX_CANDLE_GAP_PCT
+        value: 8
+      - key: ASTRAQUANT_XAU_MAX_WICK_PCT
+        value: 5
+      - key: ASTRAQUANT_XAU_MAX_QUOTE_GAP_PCT
+        value: 3
+      - key: ASTRAQUANT_XAU_MAX_LEVEL_RISK_PCT
+        value: 3.5

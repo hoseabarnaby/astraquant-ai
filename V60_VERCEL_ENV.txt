@@ -1,0 +1,5 @@
+ASTRAQUANT_LEDGER_ANCHOR_EQUITY=1465.35
+ASTRAQUANT_LEDGER_ANCHOR_VERSION=v60-recovery-1
+ASTRAQUANT_LEDGER_ANCHOR_AT=
+
+# Replace 1465.35 only if a different last trusted equity is confirmed.
